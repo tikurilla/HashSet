@@ -25,6 +25,15 @@ public class CustomHashSetTest {
 
         s.addAll(s2);
         assertEquals("addAll is not working correctly", 3, s.size());
+
+        final Set<String> s3 = new HashSet<>();
+        s3.add("4");
+        s3.add("5");
+        s3.add("6");
+
+        s.addAll(s3);
+        assertEquals("addAll is not working correctly", 6, s.size());
+
         assertTrue("addAll is not working correctly", s.contains("1"));
     }
 

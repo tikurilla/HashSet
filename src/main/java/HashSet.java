@@ -100,8 +100,19 @@ public class HashSet<T> implements Set<T> {
     }
 
     @Override
+    // 21.07.2017 23.34
     public boolean addAll(Collection<? extends T> c) {
         // BEGIN (write your solution here)
+        final Map<T, Boolean> cSet = new HashMap<>();
+        Object[] cArray = new Object[c.size()];
+        cArray = c.toArray();
+        for(int i=0;i<c.size();i++){
+            cSet.put((T)cArray[i], EXIST);
+        }
+        if (c.size()==cSet.size()) {
+            elements.putAll(cSet);
+            return true;
+        }
         return false;
         // END
     }
