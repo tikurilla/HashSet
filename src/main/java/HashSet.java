@@ -23,11 +23,12 @@ public class HashSet<T> implements Set<T> {
     @Override
     public boolean contains(Object o) {
         // BEGIN (write your solution here)
-        return elements.containsKey(o) ? true : false;
+        return elements.containsKey(o);
         // END
     }
 
     @Override
+    // 21.07.2017 22.35
     public Iterator<T> iterator() {
         // BEGIN (write your solution here)
         return new Iterator<T>() {
@@ -43,11 +44,11 @@ public class HashSet<T> implements Set<T> {
 
             @Override
             public T next() {
-//                if (!hasNext())
-//                    throw new NoSuchElementException();
-//                lastIndex = index;
-//                return ArrayList.this.m[index++];
-                return null;
+                if (!hasNext())
+                    throw new NoSuchElementException();
+                lastIndex = index;
+                final Object[] SetArray = new Object[HashSet.this.size()];
+                return (T)SetArray[index++];
             }
         };
         // END
@@ -68,15 +69,25 @@ public class HashSet<T> implements Set<T> {
     }
 
     @Override
+    // 21.07.2017 22.50
     public boolean add(T t) {
         // BEGIN (write your solution here)
-        return false;
+        if (elements.containsKey(t)) {
+            return false;
+        }
+        elements.put(t, EXIST);
+        return true;
         // END
     }
 
     @Override
+    // 21.07.2017 22.52
     public boolean remove(Object o) {
         // BEGIN (write your solution here)
+        if (elements.containsKey(o)) {
+            elements.remove(o);
+            return true;
+        }
         return false;
         // END
     }
@@ -115,5 +126,4 @@ public class HashSet<T> implements Set<T> {
 
         // END
     }
-
 }
