@@ -95,6 +95,7 @@ public class HashSet<T> implements Set<T> {
     @Override
     public boolean containsAll(Collection<?> c) {
         // BEGIN (write your solution here)
+
         return false;
         // END
     }
@@ -103,12 +104,7 @@ public class HashSet<T> implements Set<T> {
     // 21.07.2017 23.34
     public boolean addAll(Collection<? extends T> c) {
         // BEGIN (write your solution here)
-        final Map<T, Boolean> cSet = new HashMap<>();
-        Object[] cArray = new Object[c.size()];
-        cArray = c.toArray();
-        for(int i=0;i<c.size();i++){
-            cSet.put((T)cArray[i], EXIST);
-        }
+        final Map<T, Boolean> cSet = collectionToHashSet(c);
         if (c.size()==cSet.size()) {
             elements.putAll(cSet);
             return true;
@@ -136,5 +132,15 @@ public class HashSet<T> implements Set<T> {
         // BEGIN (write your solution here)
 
         // END
+    }
+
+    private Map<T, Boolean> collectionToHashSet(Collection<? extends T> c) {
+        final Map<T, Boolean> cSet = new HashMap<>();
+        Object[] cArray = new Object[c.size()];
+        cArray = c.toArray();
+        for(int i=0;i<c.size();i++){
+            cSet.put((T)cArray[i], EXIST);
+        }
+        return cSet;
     }
 }
