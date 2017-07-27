@@ -143,4 +143,13 @@ public class HashSet<T> implements Set<T> {
         }
         return cSet;
     }
+
+    private boolean isSet(Collection<?> c) {
+        final Map<T, Boolean> cSet = new HashMap<>();
+        Object[] cArray = new Object[c.size()];
+        for(int i=0;i<c.size();i++){
+            cSet.put((T)cArray[i], EXIST);
+        }
+        return c.size() == cSet.size();
+    }
 }
