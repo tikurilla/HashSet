@@ -35,6 +35,19 @@ public class CustomHashSetTest {
         assertEquals("addAll is not working correctly", 6, s.size());
 
         assertTrue("addAll is not working correctly", s.contains("1"));
+
+        final Set<String> s4 = new HashSet<>();
+        s4.add("1");
+        s4.add("2");
+        s4.add("3");
+        s4.add("4");
+        s4.add("5");
+
+        final Set<String> s5 = new HashSet<>();
+        s5.add("4");
+        s5.add("5");
+
+        assertTrue("containsAll is not working correctly", s4.containsAll(s5));
     }
 
     private static <T>void assertEquals(final String msg, final T expectedVal, final T actualVal) {

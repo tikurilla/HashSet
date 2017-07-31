@@ -95,7 +95,13 @@ public class HashSet<T> implements Set<T> {
     @Override
     public boolean containsAll(Collection<?> c) {
         // BEGIN (write your solution here)
-
+        if (isSet(c)) {
+            for(Object item : c) {
+                if(!this.contains(item))
+                    return false;
+            }
+            return true;
+        }
         return false;
         // END
     }
@@ -147,6 +153,7 @@ public class HashSet<T> implements Set<T> {
     private boolean isSet(Collection<?> c) {
         final Map<T, Boolean> cSet = new HashMap<>();
         Object[] cArray = new Object[c.size()];
+        cArray = c.toArray();
         for(int i=0;i<c.size();i++){
             cSet.put((T)cArray[i], EXIST);
         }
