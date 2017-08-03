@@ -5,6 +5,11 @@ public class HashSet<T> implements Set<T> {
     private static final Boolean EXIST = true;
 
     private final Map<T, Boolean> elements = new HashMap<>();
+    // Have to complete:
+    // <T1> T1[] toArray(T1[] a)
+    // removeAll(Collection<?> c)
+    // retainAll(Collection<?> c)
+    // clear()
 
     @Override
     public int size() {
@@ -28,7 +33,8 @@ public class HashSet<T> implements Set<T> {
     }
 
     @Override
-    // 21.07.2017 22.35
+    // created 21.07.2017 22.35
+    // modified 03.08.20017 09.23
     public Iterator<T> iterator() {
         // BEGIN (write your solution here)
         return new Iterator<T>() {
@@ -47,11 +53,43 @@ public class HashSet<T> implements Set<T> {
                 if (!hasNext())
                     throw new NoSuchElementException();
                 lastIndex = index;
-                final Object[] SetArray = new Object[HashSet.this.size()];
+                Object[] SetArray = new Object[HashSet.this.size()];
+                SetArray = HashSet.this.toArray();
                 return (T)SetArray[index++];
             }
         };
         // END
+    }
+
+    private class ElementsIterator<T> implements Iterator<T> {
+        private static final int LAST_IS_NOT_SET = -1;
+        private int index;
+        private int lastIndex = LAST_IS_NOT_SET;
+
+        public ElementsIterator() {
+            this(0);
+        }
+
+        public ElementsIterator(final int index) {
+            // BEGIN (write your solution here)
+            this.index = index;
+            // END
+        }
+
+        @Override
+        public boolean hasNext() {
+            return HashSet.this.size() > index;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            lastIndex = index;
+            Object[] SetArray = new Object[HashSet.this.size()];
+            SetArray = HashSet.this.toArray();
+            return (T)SetArray[index++];
+        }
     }
 
     @Override
@@ -93,16 +131,16 @@ public class HashSet<T> implements Set<T> {
     }
 
     @Override
+    // 03.08.2017 09.53
     public boolean containsAll(Collection<?> c) {
         // BEGIN (write your solution here)
-        if (isSet(c)) {
-            for(Object item : c) {
-                if(!this.contains(item))
-                    return false;
-            }
-            return true;
+        if (c.size() == 0)
+            return false;
+        for(Object item : c) {
+            if(!this.contains(item))
+                return false;
         }
-        return false;
+        return true;
         // END
     }
 
@@ -148,15 +186,5 @@ public class HashSet<T> implements Set<T> {
             cSet.put((T)cArray[i], EXIST);
         }
         return cSet;
-    }
-
-    private boolean isSet(Collection<?> c) {
-        final Map<T, Boolean> cSet = new HashMap<>();
-        Object[] cArray = new Object[c.size()];
-        cArray = c.toArray();
-        for(int i=0;i<c.size();i++){
-            cSet.put((T)cArray[i], EXIST);
-        }
-        return c.size() == cSet.size();
     }
 }

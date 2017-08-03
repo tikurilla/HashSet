@@ -1,4 +1,4 @@
-import java.util.Set;
+import java.util.*;
 
 public class CustomHashSetTest {
 
@@ -36,6 +36,7 @@ public class CustomHashSetTest {
 
         assertTrue("addAll is not working correctly", s.contains("1"));
 
+        // contaisnAll testing
         final Set<String> s4 = new HashSet<>();
         s4.add("1");
         s4.add("2");
@@ -44,10 +45,28 @@ public class CustomHashSetTest {
         s4.add("5");
 
         final Set<String> s5 = new HashSet<>();
-        s5.add("4");
+        s5.add("1");
         s5.add("5");
 
         assertTrue("containsAll is not working correctly", s4.containsAll(s5));
+
+        final Collection<String> s6 = new ArrayList<>();
+        s6.add("1");
+        s6.add("1");
+        s6.add("2");
+
+        assertTrue("containsAll is not working correctly", s4.containsAll(s6));
+
+        final Collection<String> s7 = new ArrayList<>();
+        s7.add("10");
+        s7.add("1");
+        s7.add("1");
+        s7.add("2");
+
+        assertFalse("containsAll is not working correctly", s4.containsAll(s7));
+
+        final Collection<String> s8 = new ArrayList<>();
+        assertFalse("containsAll is not working correctly", s4.containsAll(s8));
     }
 
     private static <T>void assertEquals(final String msg, final T expectedVal, final T actualVal) {
@@ -58,6 +77,10 @@ public class CustomHashSetTest {
 
     private static void assertTrue(final String msg, final Boolean value) {
         assertEquals(msg, true, value);
+    }
+
+    private static void assertFalse(final String msg, final Boolean value) {
+        assertEquals(msg, false, value);
     }
 
 }
