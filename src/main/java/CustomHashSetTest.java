@@ -50,6 +50,7 @@ public class CustomHashSetTest {
 
         assertTrue("containsAll is not working correctly", s4.containsAll(s5));
 
+        //
         final Collection<String> s6 = new ArrayList<>();
         s6.add("1");
         s6.add("1");
@@ -57,6 +58,7 @@ public class CustomHashSetTest {
 
         assertTrue("containsAll is not working correctly", s4.containsAll(s6));
 
+        //
         final Collection<String> s7 = new ArrayList<>();
         s7.add("10");
         s7.add("1");
