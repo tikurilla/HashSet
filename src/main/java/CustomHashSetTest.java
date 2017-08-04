@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.*;
 
 public class CustomHashSetTest {
@@ -69,6 +71,51 @@ public class CustomHashSetTest {
 
         final Collection<String> s8 = new ArrayList<>();
         assertFalse("containsAll is not working correctly", s4.containsAll(s8));
+
+        // Test retainAll()
+        final Set<String> s10 = new HashSet<>();
+        s10.add("1");
+        s10.add("2");
+        s10.add("3");
+        s10.add("4");
+        s10.add("5");
+
+        final Collection<String> s11 = new ArrayList<>();
+        s11.add("21");
+        s11.add("22");
+        s11.add("3");
+        s11.add("4");
+        s11.add("5");
+
+        final Collection<String> s12 = new ArrayList<>();
+        s12.add("31");
+        s12.add("32");
+
+        assertTrue("retainAll is not working correctly", s10.retainAll(s11));
+        assertFalse("retainAll is not working correctly", s10.retainAll(s12));
+        assertTrue("retainAll is not working correctly", s10.contains("3"));
+        assertTrue("retainAll is not working correctly", s10.contains("4"));
+        assertTrue("retainAll is not working correctly", s10.contains("5"));
+        assertFalse("retainAll is not working correctly", s10.contains("1"));
+        assertFalse("retainAll is not working correctly", s10.contains("2"));
+        assertFalse("retainAll is not working correctly", s10.contains("21"));
+
+        // Test removeAll()
+        final Set<String> s13 = new HashSet<>();
+        s13.add("1");
+        s13.add("2");
+        s13.add("3");
+        s13.add("4");
+        s13.add("5");
+
+        final Collection<String> s14 = new ArrayList<>();
+        s14.add("21");
+        s14.add("22");
+        s14.add("3");
+        s14.add("4");
+        s14.add("5");
+
+        assertTrue("removeAll is not working correctly", s13.removeAll(s14));
     }
 
     private static <T>void assertEquals(final String msg, final T expectedVal, final T actualVal) {

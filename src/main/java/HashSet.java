@@ -6,10 +6,10 @@ public class HashSet<T> implements Set<T> {
 
     private final Map<T, Boolean> elements = new HashMap<>();
     // Have to complete:
-    // <T1> T1[] toArray(T1[] a)
-    // removeAll(Collection<?> c)
-    // retainAll(Collection<?> c)
-    // clear()
+    //      <T1> T1[] toArray(T1[] a)
+    //+      removeAll(Collection<?> c)
+    //+      retainAll(Collection<?> c)
+    //+      clear()
 
     @Override
     public int size() {
@@ -158,8 +158,21 @@ public class HashSet<T> implements Set<T> {
     }
 
     @Override
+//    04.08.2017 15.44
     public boolean removeAll(Collection<?> c) {
         // BEGIN (write your solution here)
+        final int oldSize = this.size();
+        if (!c.isEmpty()) {
+            for (Object itemC: c) {
+                for(Object itemThis : this) {
+                    if (itemC.equals(itemThis)) {
+                        this.remove(itemThis);
+                    }
+                }
+            }
+        }
+        if (oldSize!=this.size())
+            return true;
         return false;
         // END
     }
@@ -167,6 +180,23 @@ public class HashSet<T> implements Set<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         // BEGIN (write your solution here)
+        HashSet<T> intersectC = new HashSet<>();
+        if (!c.isEmpty()) {
+            for (Object itemC: c) {
+                for(Object itemThis : this) {
+                    if (itemC.equals(itemThis)) {
+                        intersectC.add((T)itemThis);
+                    }
+                }
+            }
+        }
+        if (!intersectC.isEmpty()) {
+            this.elements.clear();
+            for(Object items : intersectC) {
+                this.add((T)items);
+            }
+            return true;
+        }
         return false;
         // END
     }
@@ -174,7 +204,7 @@ public class HashSet<T> implements Set<T> {
     @Override
     public void clear() {
         // BEGIN (write your solution here)
-
+        elements.clear();
         // END
     }
 
